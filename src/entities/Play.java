@@ -3,12 +3,15 @@ package entities;
 public class Play {
 	private char pieceId;
 	private int pieceColumn, pieceRow, playColumn, playRow;
+	private String pieceCoordinate, playCoordinate;
 
 	public Play(String piece, String play) {
 		this.pieceColumn = translateCommand(piece)[0];
 		this.pieceRow = translateCommand(piece)[1];
 		this.playColumn = translateCommand(play)[0];
 		this.playRow = translateCommand(play)[1];
+		this.pieceCoordinate = piece;
+		this.playCoordinate = play;
 	}
 	
 	public char getPieceId() {
@@ -34,27 +37,14 @@ public class Play {
 	public int[] translateCommand(String command) {
 		char[] translatedPlay = command.toCharArray();
 		int column = translateColumn(translatedPlay[0]);
-		int row = Character.getNumericValue(translatedPlay[1]) - 1;  
+		int row = Character.getNumericValue(translatedPlay[1]) - 1;
 		int[] positions = { column, row };
 		return positions;
 	}
 	
-//	private void translatePlay(String play) {
-//		char[] translatedPlay = play.toCharArray();
-//		
-////		if (translatedPlay.length == 2) {
-//			//pawn play
-//			this.pieceId = 'p';
-//			this.column = translateColumn(translatedPlay[0]);
-//			this.row = Character.getNumericValue(translatedPlay[1]) - 1;  
-////		} else if (translatedPlay.length == 3) {
-////			//normal play
-////			this.pieceId = translatedPlay[0];
-////			this.column = translateColumn(translatedPlay[1]);
-////			this.row = Character.getNumericValue(translatedPlay[2]) - 1;  
-////		}
-//		
-//	}
+	public String getMoveRegistry() {
+		return pieceCoordinate + "-" + playCoordinate;
+	}
 	
 	private int translateColumn(char column) {
 		   if (column >= 'a' && column <= 'z') {

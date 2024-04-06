@@ -50,7 +50,7 @@ public class Board {
 	
 	public void regenerateBoard(Piece[] pieces) {
 		System.out.println(pieces.length + "aqui");
-		
+
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				squares[i][j] = null;
@@ -59,13 +59,25 @@ public class Board {
 				squares[i][j].setPosition(i, j);
 			}
 		}
-		
+
 		for (Piece piece : pieces) {
 			int row = piece.getRow();
 			int column = piece.getColumn();
 			squares[row][column].setPiece(piece);
 			squares[row][column].setPosition(row, column);
 		}
-		
+
 	}
+	
+	// public boolean validateMove(int row, int column, Colors color) {
+	// 	Square square = squares[row][column];
+	// 	Piece piece = square.getPiece();
+
+	// 	if (piece != null) {
+	// 		// piece.getColor() == color;
+	// 	} else {
+	// 		return true;
+	// 	}
+	// 	// return false;
+	// }
 }

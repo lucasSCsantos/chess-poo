@@ -6,6 +6,7 @@ public class Piece {
 	private int row, column;
 	private String name;
 	private boolean alive;
+	private String[] moveHistory = new String[99];
 	
 	public Piece(char character, int row, int column, String name, char id) {
 		this.character = character;
@@ -40,7 +41,20 @@ public class Piece {
 	public int getColumn() {
 		return column;
 	}
+
+	public String[] getMoveHistory() {
+		return moveHistory;
+	}
 	
+	public void setInMoveHistory(String move) {
+		for (int i = 0; i < moveHistory.length; i += 1) {
+			if (moveHistory[i] == null) {
+				moveHistory[i] = move;
+				break;
+			}
+		}
+	}
+
 	public void setRow(int row) {
 		this.row = row;
 	}
@@ -49,7 +63,7 @@ public class Piece {
 		this.column = column;
 	}
 	
-	public boolean validateMove(int newRow, int newColumn, int round, Colors color) {
+	public boolean validateMove(int newRow, int newColumn, Colors color) {
 		
 		if (newRow > 7 || newRow < 0 || newColumn > 7 || newColumn < 0) {
 			return false;
@@ -62,7 +76,7 @@ public class Piece {
 		boolean isL = (rowDifference == 1 && columnDifference == 2) || (rowDifference == 2 && columnDifference == 1);
 		boolean isKing = (rowDifference == 1 || rowDifference == 0) && (columnDifference == 1 && columnDifference == 0);
 		boolean pawnColor = color == Colors.BLACK ? newRow > row : newRow < row;
-		boolean isPawn = round == 1 ? pawnColor && (rowDifference == 1 || rowDifference == 2) && (columnDifference == 0) : pawnColor && rowDifference == 1 && columnDifference == 0;
+		boolean isPawn = moveHistory[0] == null ? pawnColor && (rowDifference == 1 || rowDifference == 2) && (columnDifference == 0) : pawnColor && rowDifference == 1 && columnDifference == 0;
 //		se horizontal:
 //			row muda e coluna nao ou coluna muda e row nao
 		if (name == "Tower" && isHorizontal) {

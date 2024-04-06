@@ -18,8 +18,8 @@ public class Player {
 	}
 	
 	public Piece getPieceByLocation(int row, int column) {
-//		return pieces.find(where char equal a character);
 		Piece foundPiece = null;
+
 		for (Piece piece : pieces) {	
 			if (piece.getRow() == row && piece.getColumn() == column) {
 				foundPiece = piece;
@@ -58,21 +58,23 @@ public class Player {
 		}
 	}
 	
-	public boolean play(Play play, Game game, Board board) {
+	public boolean play(Play play, Board board) {
 		boolean isSucced = false;
 		Piece piece = getPieceByLocation(play.getPieceRow(), play.getPieceColumn());
 		
 		if (piece != null) {
-				boolean canMove = piece.validateMove(play.getPlayRow(), play.getPlayColumn(), game.getRound(), color) ;
-//							&& 
-//								board.validateMove(play.getPosition());
+			boolean canMove = piece.validateMove(play.getPlayRow(), play.getPlayColumn(), color);
+							// && 
+							// 	board.validateMove(play.getPlayRow(), play.getPlayColumn(), color);
 				if (canMove) {
 					piece.setColumn(play.getPlayColumn());
 					piece.setRow(play.getPlayRow());
+					piece.setInMoveHistory(play.getMoveRegistry());
+
 					isSucced = true;
 				}
 		} else {
-			System.out.println("There is no piece in this coordenates");
+			System.out.println("There is no piece of yours in this coordinates");
 		}
 		
 		if (isSucced == false) {

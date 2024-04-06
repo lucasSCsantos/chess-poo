@@ -21,7 +21,7 @@ public class App {
 		Scanner sc = new Scanner(System.in);
 		while(game.isLive() == true) {
 			String playCommand, pieceCommand;
-//			play = sc.next();
+
 			System.out.println("Please type the coordinates from the piece you want to play");
 			pieceCommand = sc.next();
 			System.out.println("Please type the coordinates where you want to place your piece in");
@@ -29,7 +29,7 @@ public class App {
 			
 			Play play = new Play(pieceCommand, playCommand);
 			
-			boolean playIsSucced = game.actualPlayer().play(play, game, board);
+			boolean playIsSucced = game.actualPlayer().play(play, board);
 			
 			if (playIsSucced) {		
 				board.regenerateBoard(game.getPieces());
@@ -38,16 +38,5 @@ public class App {
 			}
 		}
 		sc.close();
-	}
-
-	
-	public static Piece[] concatPieces(Piece[] pieces1, Piece[] pieces2) {
-		Piece[] pieces = new Piece[pieces1.length + pieces2.length];
-	        
-        System.arraycopy(pieces1, 0, pieces, 0, pieces1.length);
-        System.arraycopy(pieces2, 0, pieces, pieces1.length, pieces2.length);
-
-        
-        return pieces;
 	}
 }
